@@ -5,6 +5,7 @@ var path = require('path')
 
 var accessionOrderGateway = require(path.join(__dirname, 'accession-order-gateway'))
 var taskGateway = require(path.join(__dirname, 'task-gateway'))
+var providerGateway = require(path.join(__dirname, 'provider-gateway'))
 
 var PROTO_PATH = path.join(__dirname, '../../node_modules/ap-protobuf/src/core/gateway.proto')
 
@@ -25,6 +26,11 @@ module.exports = {
     server.addService(protobuf.AccessionOrderGateway.service,
       {
         getAccessionOrderByMasterAccessionNo: accessionOrderGateway.getAccessionOrderByMasterAccessionNo
+      })
+
+    server.addService(protobuf.ProviderGateway.service,
+      {
+        getClientById: providerGateway.getClientById
       })
 
     server.bind(process.env.AP_GATEWAY_SERVICE_BINDING, grpc.ServerCredentials.createInsecure())
