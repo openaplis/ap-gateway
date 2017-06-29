@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/openaplis/ap-gateway#readme",
   "dependencies": {
-    "ap-mysql": "*"
+    "ap-mysql": "*",
+    "ap-protobuf": "*",
+    "grpc": "^1.4.1"
   }
 }

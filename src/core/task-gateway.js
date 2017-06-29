@@ -1,6 +1,7 @@
 'use strict'
 
 var path = require('path')
+var cmdSubmitter = require('ap-mysql').cmdSubmitter
 
 module.exports = {
   getUnacknowledgedTrackingNumbers: function (call, callback) {
