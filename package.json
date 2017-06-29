@@ -2,9 +2,9 @@
   "name": "ap-gateway",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-service": "node src/start-service.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/openaplis/ap-gateway/issues"
   },
-  "homepage": "https://github.com/openaplis/ap-gateway#readme"
+  "homepage": "https://github.com/openaplis/ap-gateway#readme",
+  "dependencies": {
+    "ap-mysql": "*"
+  }
 }

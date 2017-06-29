@@ -31,14 +31,14 @@ module.exports = {
     server.start()
 
     callback(null, {
-      message: 'The Mysql service has started.',
+      message: 'The Gateway service has started.',
       serviceBinding: process.env.AP_GATEWAY_SERVICE_BINDING
     })
   },
 
   shutdown: function (callback) {
     server.tryShutdown(function () {
-      callback(null, { message: 'The service has been stopped.'} )
+      callback(null, { message: 'The Gateway service has been stopped.'} )
     })
   }
 
