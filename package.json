@@ -1,6 +1,6 @@
 {
   "name": "ap-gateway",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/openaplis/ap-gateway#readme",
   "dependencies": {
-    "ap-mysql": "*"
+    "ap-mysql": "*",
+    "ap-protobuf": "*",
+    "grpc": "^1.4.1"
   }
 }
