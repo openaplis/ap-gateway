@@ -23,10 +23,13 @@ module.exports = {
         acknowledgeTaskOrder: taskGateway.acknowledgeTaskOrder
       })
 
-    server.addService(protobuf.AccessionOrderGateway.service,
-      {
-        getAccessionOrderByMasterAccessionNo: accessionOrderGateway.getAccessionOrderByMasterAccessionNo
-      })
+    server.addService(protobuf.AccessionOrderGateway.service, {
+      getAccessionOrder: function (call, callback) {
+        accessionOrderGateway.getAccessionOrder(call.request.searchName, call.request.params, function (err, ao) {
+          callback(null, { masterAccessionNo: call.request.masterAccessionNo, json: JSON.stringify(ao) })
+        })
+      }
+    })
 
     server.addService(protobuf.ProviderGateway.service,
       {
