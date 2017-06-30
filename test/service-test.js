@@ -26,14 +26,19 @@ describe('Service Test', function() {
     })
   })
 
-/*
+
   it('Client Test', function(done) {
     this.timeout(5000)
-    providerGateway.getClientById( { clientId: '33' }, function (err, result) {
+    
+    var searchDefinition = {
+      searchName: 'byClientId',
+      searchParams: [{ name: 'clientId', value: '33' }]
+    }
+
+    providerGateway.getClientById(searchDefinition, function (err, result) {
       if(err) return console.log(err)
       console.log(result)
       done()
     })
   })
-*/
 })
