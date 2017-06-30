@@ -1,9 +1,11 @@
 'use strict'
 
 var path = require('path')
+var _ = require('underscore')
 
 var aoBuilder = require('ap-mysql').aoBuilder
 var aoRetriever = require('ap-mysql').aoRetriever
+var cmdSubmitter = require('ap-mysql').cmdSubmitter
 
 var searchTypes = {
   getByMasterAccessionNo: getByMasterAccessionNo,
@@ -12,6 +14,7 @@ var searchTypes = {
 
 module.exports = {
   getAccessionOrder: function (searchName, params, callback) {
+    console.log(params)
     var handler = searchTypes[searchName]
     handler(params, function (err, ao) {
       if(err) return callback(err)
@@ -20,32 +23,22 @@ module.exports = {
   }
 }
 
-function getByMasterAccessionNo(params, callback) {
-
-  aoRetriever.retrieve(call.request.masterAccessionNo, function (err, ao) {
+function retrieveAccessionOrder (masterAccessionNo, callback) {
+  aoRetriever.retrieve(masterAccessionNo, function (err, ao) {
     if(err) return callback(err)
-    callback(null, { masterAccessionNo: call.request.masterAccessionNo, json: JSON.stringify(ao) })
+    callback(null, ao)
   })
+}
+
+function getByMasterAccessionNo(params, callback) {
+  var masterAccessionNo = _.find(params, function (p) { return p.name == 'masterAccessionNo' }).value
+  console.log('Received request for: ' + masterAccessionNo)
+  retrieveAccessionOrder(masterAccessionNo, callback)
 }
 
 function getByAliquotOrderId(params, callback) {
-
+  var aliquotOrderId = _.find(params, function (p) { return p.name == 'aliquotOrderId' }).value
+  console.log('Received request for: ' + masterAccessionNo)
+  var masterAccessionNo = aliquotOrderId.split('.')[0]
+  retrieveAccessionOrder(masterAccessionNo, callback)
 }
-
-/*
-getAccessionOrderByMasterAccessionNo: function (call, callback) {
-  console.log('Retrieving: ' + call.request.masterAccessionNo)
-  aoRetriever.retrieve(call.request.masterAccessionNo, function (err, ao) {
-    if(err) return callback(err)
-    callback(null, { masterAccessionNo: call.request.masterAccessionNo, json: JSON.stringify(ao) })
-  })
-},
-
-getAccessionOrderByAliquotOrderId: function (call, callback) {
-  console.log('Retrieving: ' + call.request.masterAccessionNo)
-  aoRetriever.retrieve(call.request.masterAccessionNo, function (err, ao) {
-    if(err) return callback(err)
-    callback(null, { masterAccessionNo: call.request.masterAccessionNo, json: JSON.stringify(ao) })
-  })
-}
-*/

@@ -12,13 +12,21 @@ const providerGateway = new gateway_proto.ProviderGateway(process.env.AP_GATEWAY
 describe('Service Test', function() {
   it('Service Test', function(done) {
     this.timeout(5000)
-    accessionOrderGateway.getAccessionOrderByMasterAccessionNo( { masterAccessionNo: '17-16410' }, function (err, result) {
+
+    var searchDefinition = {
+      searchName: 'getByMasterAccessionNo',
+      searchParams: [{ name: 'masterAccessionNo', value: '17-16410' }]
+    }
+
+    accessionOrderGateway.getAccessionOrder(searchDefinition, function (err, result) {
       if(err) return console.log(err)
-      console.log(result)
+      var ao = JSON.parse(result.json)
+      console.log('Received: ' + ao.accessionOrder.masterAccessionNo)
       done()
     })
   })
 
+/*
   it('Client Test', function(done) {
     this.timeout(5000)
     providerGateway.getClientById( { clientId: '33' }, function (err, result) {
@@ -27,4 +35,5 @@ describe('Service Test', function() {
       done()
     })
   })
+*/
 })
