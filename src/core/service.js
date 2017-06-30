@@ -31,10 +31,13 @@ module.exports = {
       }
     })
 
-    server.addService(protobuf.ProviderGateway.service,
-      {
-        getClientById: providerGateway.getClientById
-      })
+    server.addService(protobuf.ProviderGateway.service, {
+      getClientById : function(call, callback) {
+        providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, clnt) {
+          callback(null, {client: JSON.stringify(clnt)})
+        })
+      }
+    })
 
     server.bind(process.env.AP_GATEWAY_SERVICE_BINDING, grpc.ServerCredentials.createInsecure())
     server.start()
