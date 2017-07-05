@@ -39,7 +39,7 @@ describe('Service Test', function() {
     providerGateway.getClient(searchDefinition, function (err, result) {
       if(err) return console.log(err)
       var client = JSON.parse(result.json)
-      assert.equal(searchDefinition.searchParams[0].value, client.ClientId)
+      assert.equal(searchDefinition.searchParams[0].value, client.clientId)
       done()
     })
   })
