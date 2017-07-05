@@ -10,20 +10,21 @@ var searchTypes = {
 module.exports = {
   getClient: function(searchName, params, callback) {
     var handler = searchTypes[searchName]
-    handler(params, function (err, client) {
+    handler(params, function (err, result) {
       if(err) return callback(err)
-      callback(null, client)
+      callback(null, result)
     })
   }
 }
 
 function byClientId(params, callback) {
-  var clientId = _.find(params, function (p) { return p.searchName == 'clientId' }).value
-  var sql = ['Select * from tblClient ',
-    'where ClientId = \'' + clientId + '\';'].join('\n')
-    console.log(sql)
-  cmdSubmitter.submit(sql, function(err, client) {
+  var clientId = _.find(params, function (p) { return p.name == 'clientId' }).value
+  var sql = 'Select * from tblClient where ClientId = \'' + clientId + '\';'
+  cmdSubmitter.submit(sql, function(err, result) {
     if(err) return callback(err)
-    callback(null, client )
+    console.log(result[0])
+    var clnt = camelCase.toLower(result[0])
+    console.log(clnt)
+    callback(null, clnt)
   })
 }

@@ -32,9 +32,10 @@ module.exports = {
     })
 
     server.addService(protobuf.ProviderGateway.service, {
-      getClientById : function(call, callback) {
+      getClient : function(call, callback) {
         providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, clnt) {
-          callback(null, {client: JSON.stringify(clnt)})
+          console.log(clnt)
+          callback(null, {client: clnt})
         })
       }
     })
