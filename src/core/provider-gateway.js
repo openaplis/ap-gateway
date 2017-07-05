@@ -23,8 +23,6 @@ function byClientId(params, callback) {
   cmdSubmitter.submit(sql, function(err, result) {
     if(err) return callback(err)
     console.log(result[0])
-    var clnt = camelCase.toLower(result[0])
-    console.log(clnt)
-    callback(null, clnt)
+    callback(null, result[0])
   })
 }

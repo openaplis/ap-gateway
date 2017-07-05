@@ -33,9 +33,8 @@ module.exports = {
 
     server.addService(protobuf.ProviderGateway.service, {
       getClient : function(call, callback) {
-        providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, clnt) {
-          console.log(clnt)
-          callback(null, {client: clnt})
+        providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, client) {          
+          callback(null, { json: JSON.stringify(client) })
         })
       }
     })

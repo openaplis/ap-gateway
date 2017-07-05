@@ -1,4 +1,5 @@
 'use strict'
+const assert = require('chai').assert
 
 const path = require('path')
 const grpc = require('grpc')
@@ -10,7 +11,8 @@ const accessionOrderGateway = new gateway_proto.AccessionOrderGateway(process.en
 const providerGateway = new gateway_proto.ProviderGateway(process.env.AP_GATEWAY_SERVICE_BINDING, grpc.credentials.createInsecure())
 
 describe('Service Test', function() {
-  it('Service Test', function(done) {
+
+  it('Accession Order Test', function(done) {
     this.timeout(5000)
 
     var searchDefinition = {
@@ -21,11 +23,10 @@ describe('Service Test', function() {
     accessionOrderGateway.getAccessionOrder(searchDefinition, function (err, result) {
       if(err) return console.log(err)
       var ao = JSON.parse(result.json)
-      console.log('Received: ' + ao.accessionOrder.masterAccessionNo)
+      assert.equal(searchDefinition.searchParams[0].value, ao.accessionOrder.masterAccessionNo)
       done()
     })
   })
-
 
   it('Client Test', function(done) {
     this.timeout(5000)
@@ -37,7 +38,8 @@ describe('Service Test', function() {
 
     providerGateway.getClient(searchDefinition, function (err, result) {
       if(err) return console.log(err)
-      //console.log(result)
+      var client = JSON.parse(result.json)
+      assert.equal(searchDefinition.searchParams[0].value, client.ClientId)
       done()
     })
   })
