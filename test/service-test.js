@@ -29,15 +29,15 @@ describe('Service Test', function() {
 
   it('Client Test', function(done) {
     this.timeout(5000)
-    
+
     var searchDefinition = {
       searchName: 'byClientId',
       searchParams: [{ name: 'clientId', value: '33' }]
     }
 
-    providerGateway.getClientById(searchDefinition, function (err, result) {
+    providerGateway.getClient(searchDefinition, function (err, result) {
       if(err) return console.log(err)
-      console.log(result)
+      //console.log(result)
       done()
     })
   })
