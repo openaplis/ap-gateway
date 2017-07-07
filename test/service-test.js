@@ -17,7 +17,7 @@ describe('Service Test', function() {
     this.timeout(5000)
 
     var cmdSubmitterRequest = {
-      sql: 'select * from tblClient'
+      sql: 'select * from tblClient;'
     }
 
     mysqlGateway.submitCmd(cmdSubmitterRequest, function (err, result) {
