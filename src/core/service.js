@@ -3,6 +3,8 @@
 var grpc = require('grpc')
 var path = require('path')
 
+var cmdSubmitter = require('ap-mysql').cmdSubmitter
+
 var accessionOrderGateway = require(path.join(__dirname, 'accession-order-gateway'))
 var taskGateway = require(path.join(__dirname, 'task-gateway'))
 var providerGateway = require(path.join(__dirname, 'provider-gateway'))
@@ -16,6 +18,16 @@ module.exports = {
 
   start: function (callback) {
     server = new grpc.Server()
+
+    server.addService(protobuf.MySQLGateway.service, {
+      submitCmd: function (call, callback) {
+        cmdSubmitter.submit(call.request.sql, function (err, rows) {
+          if(err) return callback(err)
+          console.log(rows)
+          callback(null, { json: JSON.stringify(rows) })
+        })
+      }
+    })
 
     server.addService(protobuf.TaskGateway.service,
       {
@@ -33,7 +45,7 @@ module.exports = {
 
     server.addService(protobuf.ProviderGateway.service, {
       getClient : function(call, callback) {
-        providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, client) {          
+        providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, client) {
           callback(null, { json: JSON.stringify(client) })
         })
       }
