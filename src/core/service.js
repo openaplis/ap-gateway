@@ -16,7 +16,7 @@ module.exports = {
       submitCmd: function (call, callback) {
         cmdSubmitter.submit(call.request.sql, function (err, rows) {
           if(err) return callback(err)
-          console.log(rows)
+          //console.log(rows)
           callback(null, { json: JSON.stringify(rows) })
         })
       }

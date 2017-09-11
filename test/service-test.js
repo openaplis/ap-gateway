@@ -17,7 +17,7 @@ describe('Service Test', function() {
     this.timeout(5000)
 
     var cmdSubmitterRequest = {
-      sql: 'select * from tblClient'
+      sql: 'select * from tblClient;'
     }
 
     mysqlGateway.submitCmd(cmdSubmitterRequest, function (err, result) {
@@ -55,6 +55,7 @@ describe('Service Test', function() {
     providerGateway.getClient(searchDefinition, function (err, result) {
       if(err) return console.log(err)
       var client = JSON.parse(result.json)
+      console.log(client)
       assert.equal(searchDefinition.searchParams[0].value, client.clientId)
       done()
     })
