@@ -22,7 +22,7 @@ function byClientId(params, callback) {
   var sql = 'Select * from tblClient where ClientId = \'' + clientId + '\';'
   cmdSubmitter.submit(sql, function(err, result) {
     if(err) return callback(err)
-    console.log(result[0])
+    //console.log(result[0])
     callback(null, result[0])
   })
 }
