@@ -3,6 +3,8 @@
 var grpc = require('grpc')
 var path = require('path')
 
+var cmdSubmitter = require('ap-mysql').cmdSubmitter
+
 var PROTO_PATH = path.join(__dirname, '../../node_modules/ap-protobuf/src/core/gateway.proto')
 var protobuf = grpc.load(PROTO_PATH).gateway
 var server = {};
