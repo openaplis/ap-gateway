@@ -1,6 +1,7 @@
 'use strict'
 
 const assert = require('chai').assert
+var accessionOrderGateway = require('../src/core/accession-order-gateway')
 
 describe('Service Test', function() {
   it('Service Test', function(done) {
@@ -17,4 +18,6 @@ describe('Service Test', function() {
       console.log('Received: ' + ao.accessionOrder.masterAccessionNo)
       done()
     })
+
   })
+})

@@ -22,31 +22,7 @@ module.exports = {
           callback(null, { json: JSON.stringify(rows) })
         })
       }
-    })
-
-    /*
-    server.addService(protobuf.TaskGateway.service,
-      {
-        getUnacknowledgedTrackingNumbers: taskGateway.getUnacknowledgedTrackingNumbers,
-        acknowledgeTaskOrder: taskGateway.acknowledgeTaskOrder
-      })
-
-    server.addService(protobuf.AccessionOrderGateway.service, {
-      getAccessionOrder: function (call, callback) {
-        accessionOrderGateway.getAccessionOrder(call.request.searchName, call.request.searchParams, function (err, ao) {
-          callback(null, { masterAccessionNo: call.request.masterAccessionNo, json: JSON.stringify(ao) })
-        })
-      }
-    })
-
-    server.addService(protobuf.ProviderGateway.service, {
-      getClient : function(call, callback) {
-        providerGateway.getClient(call.request.searchName, call.request.searchParams, function(err, client) {
-          callback(null, { json: JSON.stringify(client) })
-        })
-      }
-    })
-    */
+    })    
 
     server.bind(process.env.AP_GATEWAY_SERVICE_BINDING, grpc.ServerCredentials.createInsecure())
     server.start()
