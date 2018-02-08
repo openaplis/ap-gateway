@@ -13,8 +13,7 @@ var searchTypes = {
 }
 
 module.exports = {
-  getAccessionOrder: function (searchDefinition, callback) {
-    console.log(params)
+  getAccessionOrder: function (searchDefinition, callback) {    
     var handler = searchTypes[searchDefinition.searchName]
     handler(searchDefinition.params, function (err, ao) {
       if(err) return callback(err)
